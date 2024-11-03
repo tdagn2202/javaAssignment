@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="576.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.assignmentapp.pointManagerController">
+   <children>
+      <TableView fx:id="tableView" layoutX="11.0" layoutY="70.0" prefHeight="422.0" prefWidth="381.0">
+        <columns>
+          <TableColumn fx:id="colPhoneNumber" prefWidth="121.0" text="Số điện thoại" />
+          <TableColumn fx:id="colCustomerName" minWidth="0.0" prefWidth="141.0" text="Tên khách hàng" />
+            <TableColumn fx:id="colPoint" prefWidth="118.0" text="Điểm hiện tại" />
+        </columns>
+      </TableView>
+      <Button layoutX="29.0" layoutY="515.0" mnemonicParsing="false" onAction="#openModifPointManager" text="Thay đổi tỉ lệ điểm thưởng" />
+      <Label layoutX="106.0" layoutY="23.0" text="Quản lý điểm thưởng">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Button layoutX="201.0" layoutY="515.0" mnemonicParsing="false" onAction="#removeCustomer" text="Xóa khách hàng" />
+   </children>
+</AnchorPane>
