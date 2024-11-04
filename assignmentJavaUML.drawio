@@ -1,0 +1,145 @@
+<mxGraphModel dx="0" dy="0" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" background="none" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="node2" parent="1" vertex="1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;CustomerAddMiniScreen&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ CustomerAddMiniScreen(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- txtCustomerName: TextField&lt;br/&gt;- dbScreenController: dashboardScreenController&lt;br/&gt;- phoneNumber: String&lt;br/&gt;- addCustomerPane: AnchorPane&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ initialize(URL, ResourceBundle): void&lt;br/&gt;+ btnAddClicked(ActionEvent): void&lt;br/&gt;+ setPhoneNumber(String): void&lt;br/&gt;+ setDbScreenController(dashboardScreenController): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;">
+      <mxGeometry x="261" y="2047" width="403" height="259" as="geometry" />
+    </mxCell>
+    <mxCell id="node3" parent="1" vertex="1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;dashboardScreenController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ dashboardScreenController(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- lblExchangeMoney: Label&lt;br/&gt;- tableView: TableView&amp;lt;productDetails&amp;gt;&lt;br/&gt;- lblMiniTotal: Label&lt;br/&gt;- txtPoint: TextField&lt;br/&gt;- unitColumn: TableColumn&amp;lt;productDetails, String&amp;gt;&lt;br/&gt;- lblProductName: Label&lt;br/&gt;- lblBarcode: Label&lt;br/&gt;- priceColumn: TableColumn&amp;lt;productDetails, Double&amp;gt;&lt;br/&gt;- txtCash: TextField&lt;br/&gt;- lblSupplier: Label&lt;br/&gt;- pause: PauseTransition&lt;br/&gt;- txtPointToCash: TextField&lt;br/&gt;- txtBarcode: TextField&lt;br/&gt;- isDiscount: boolean&lt;br/&gt;- tabDataValues: Map&amp;lt;Tab, tabData&amp;gt;&lt;br/&gt;- imageView: ImageView&lt;br/&gt;+ barcodeBill: String&lt;br/&gt;- lblCustomerPhoneNumber: Label&lt;br/&gt;- lblTest: Label&lt;br/&gt;- totalPriceColumn: TableColumn&amp;lt;productDetails, Double&amp;gt;&lt;br/&gt;- txtPhoneNumber: TextField&lt;br/&gt;- lblTotalPrice: Label&lt;br/&gt;- lblPoint: Label&lt;br/&gt;- lblRemainPoint: Label&lt;br/&gt;- lblCustomerName: Label&lt;br/&gt;- btnTest: Button&lt;br/&gt;- btnNewBill: Button&lt;br/&gt;- productNameColumn: TableColumn&amp;lt;productDetails, String&amp;gt;&lt;br/&gt;~ customerExisted: boolean&lt;br/&gt;- pane: TabPane&lt;br/&gt;- lblPrice: Label&lt;br/&gt;- lblDiscount: Label&lt;br/&gt;- pausePhoneNumber: PauseTransition&lt;br/&gt;- tabDataMap: Map&amp;lt;Tab, ObservableList&amp;lt;productDetails&amp;gt;&amp;gt;&lt;br/&gt;- productIDColumn: TableColumn&amp;lt;productDetails, String&amp;gt;&lt;br/&gt;+ phoneNumberForPoint: String&lt;br/&gt;~ customerHavingPointUsing: boolean&lt;br/&gt;- lblUnit: Label&lt;br/&gt;- currentTableView: TableView&amp;lt;productDetails&amp;gt;&lt;br/&gt;- quantityColumn: TableColumn&amp;lt;productDetails, Integer&amp;gt;&lt;br/&gt;- sttColumn: TableColumn&amp;lt;productDetails, Integer&amp;gt;&lt;br/&gt;- conversionRate: Double&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ btnPurchaseClicked(ActionEvent): void&lt;br/&gt;+ getTxtPoint(): TextField&lt;br/&gt;+ getTabDataMap(): Map&amp;lt;Tab, ObservableList&amp;lt;productDetails&amp;gt;&amp;gt;&lt;br/&gt;+ setCurrentTableView(TableView&amp;lt;productDetails&amp;gt;): void&lt;br/&gt;+ setupTableColumn(TableView&amp;lt;productDetails&amp;gt;): void&lt;br/&gt;+ loadProduct(String): void&lt;br/&gt;+ setTabDataMap(Map&amp;lt;Tab, ObservableList&amp;lt;productDetails&amp;gt;&amp;gt;): void&lt;br/&gt;+ getConversionRate(): Double&lt;br/&gt;+ searchProduct(String): void&lt;br/&gt;+ customerHandler(String): void&lt;br/&gt;+ getSttColumn(): TableColumn&amp;lt;productDetails, Integer&amp;gt;&lt;br/&gt;+ convertToCash(MouseEvent): void&lt;br/&gt;+ getTotalPriceColumn(): TableColumn&amp;lt;productDetails, Double&amp;gt;&lt;br/&gt;+ setDiscount(boolean): void&lt;br/&gt;+ calcTotalPrice(TableView&amp;lt;productDetails&amp;gt;, Double): String&lt;br/&gt;+ getBtnNewBill(): Button&lt;br/&gt;+ getTxtPhoneNumber(): TextField&lt;br/&gt;+ setBarcodeBill(String): void&lt;br/&gt;+ pointToCash(): void&lt;br/&gt;+ loadMoney(Double, Double): void&lt;br/&gt;+ getTxtBarcode(): TextField&lt;br/&gt;+ getTxtCash(): TextField&lt;br/&gt;+ afterDiscountForF11(Double): Double&lt;br/&gt;+ setConversionRate(Double): void&lt;br/&gt;+ showAddCustomer(String): void&lt;br/&gt;+ menuSwitchRoleToAdmin(ActionEvent): void&lt;br/&gt;+ getCurrentTableView(): TableView&amp;lt;productDetails&amp;gt;&lt;br/&gt;+ removeAllTable(ActionEvent): void&lt;br/&gt;+ pointCalculate(Double): Double&lt;br/&gt;+ deleteRowFromTable(ActionEvent): void&lt;br/&gt;+ getDiscountPrice(): Double&lt;br/&gt;+ afterDiscountPrice(Double): double&lt;br/&gt;+ openPointManager(ActionEvent): void&lt;br/&gt;+ getPriceColumn(): TableColumn&amp;lt;productDetails, Double&amp;gt;&lt;br/&gt;+ loadTotalQuantity(): String&lt;br/&gt;+ getQuantityColumn(): TableColumn&amp;lt;productDetails, Integer&amp;gt;&lt;br/&gt;+ getPane(): TabPane&lt;br/&gt;+ initialize(URL, ResourceBundle): void&lt;br/&gt;+ dailyDiscount(): void&lt;br/&gt;+ getProductIDColumn(): TableColumn&amp;lt;productDetails, String&amp;gt;&lt;br/&gt;+ getDiscount(): Double&lt;br/&gt;+ getProductNameColumn(): TableColumn&amp;lt;productDetails, String&amp;gt;&lt;br/&gt;+ loadTotalPrice(): String&lt;br/&gt;+ loadChangeMoney(): void&lt;br/&gt;- handleTestButtonAction(ActionEvent): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;">
+      <mxGeometry x="738" y="-433" width="464" height="2155" as="geometry" />
+    </mxCell>
+    <mxCell id="node1" parent="1" vertex="1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;loginScreenController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ loginScreenController(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- dashboardController: dashboardScreenController&lt;br/&gt;- btnClose: Pane&lt;br/&gt;- y: double&lt;br/&gt;- txtPassword: TextField&lt;br/&gt;- lblInvalid: Label&lt;br/&gt;- btnMin: Pane&lt;br/&gt;- scenePane: AnchorPane&lt;br/&gt;- txtUsername: TextField&lt;br/&gt;- btnCancel: Button&lt;br/&gt;- x: double&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ setDashboardController(dashboardScreenController): void&lt;br/&gt;+ btnMinClicked(MouseEvent): void&lt;br/&gt;+ moveToDashBoard(Stage): void&lt;br/&gt;+ addNewTab(): void&lt;br/&gt;+ btnCloseClicked(MouseEvent): void&lt;br/&gt;+ setupTableColumn(TableView&amp;lt;productDetails&amp;gt;): void&lt;br/&gt;+ moveToStaffDashBoard(Stage): void&lt;br/&gt;+ btnLoginClicked(ActionEvent): void&lt;br/&gt;+ sceenPressed(MouseEvent): void&lt;br/&gt;+ onCloseEvent(ActionEvent): void&lt;br/&gt;+ screenDragged(MouseEvent): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;">
+      <mxGeometry x="921" y="1835" width="409" height="571" as="geometry" />
+    </mxCell>
+    <mxCell id="node9" parent="1" vertex="1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;main&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ main(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ onCloseEvent(Stage): void&lt;br/&gt;+ start(Stage): void&lt;br/&gt;+ main(String[]): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;">
+      <mxGeometry x="210" y="496" width="211" height="148" as="geometry" />
+    </mxCell>
+    <mxCell id="node5" parent="1" vertex="1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;modifyConversionController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ modifyConversionController(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- lblCurrentPoint: Label&lt;br/&gt;- dbController: dashboardScreenController&lt;br/&gt;- txtNewConversion: TextField&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ loadConversionRate(): void&lt;br/&gt;+ modifyConversionRate(ActionEvent): void&lt;br/&gt;+ initialize(URL, ResourceBundle): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;">
+      <mxGeometry x="359" y="1772" width="305" height="211" as="geometry" />
+    </mxCell>
+    <mxCell id="node4" parent="1" vertex="1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;pointItem&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ pointItem(): &lt;br/&gt;+ pointItem(String, String, String): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- phoneNumber: SimpleStringProperty&lt;br/&gt;- currentPoint: SimpleStringProperty&lt;br/&gt;- customerName: SimpleStringProperty&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ setPhoneNumber(String): void&lt;br/&gt;+ currentPointProperty(): SimpleStringProperty&lt;br/&gt;+ getCurrentPoint(): String&lt;br/&gt;+ setCustomerName(String): void&lt;br/&gt;+ setCurrentPoint(String): void&lt;br/&gt;+ phoneNumberProperty(): SimpleStringProperty&lt;br/&gt;+ customerNameProperty(): SimpleStringProperty&lt;br/&gt;+ getPhoneNumber(): String&lt;br/&gt;+ getCustomerName(): String&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;">
+      <mxGeometry x="921" y="2483" width="343" height="379" as="geometry" />
+    </mxCell>
+    <mxCell id="node7" parent="1" vertex="1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;pointManagerController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ pointManagerController(): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- colPoint: TableColumn&amp;lt;pointItem, String&amp;gt;&lt;br/&gt;- colPhoneNumber: TableColumn&amp;lt;pointItem, String&amp;gt;&lt;br/&gt;- colCustomerName: TableColumn&amp;lt;pointItem, String&amp;gt;&lt;br/&gt;- tableView: TableView&amp;lt;pointItem&amp;gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ initialize(URL, ResourceBundle): void&lt;br/&gt;+ removeCustomer(): void&lt;br/&gt;+ loadCustomerAndPoint(): void&lt;br/&gt;+ showAlert(String, String): void&lt;br/&gt;+ openModifPointManager(): void&lt;br/&gt;- pointManagerData(): ObservableList&amp;lt;pointItem&amp;gt;&lt;br/&gt;+ addPointItem(String, String, String): void&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;">
+      <mxGeometry x="294" y="2483" width="370" height="331" as="geometry" />
+    </mxCell>
+    <mxCell id="node6" parent="1" vertex="1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;productDetails&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ productDetails(): &lt;br/&gt;+ productDetails(SimpleIntegerProperty, SimpleStringProperty, SimpleStringProperty, SimpleStringProperty, SimpleIntegerProperty, SimpleDoubleProperty, SimpleDoubleProperty): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- quantity: SimpleIntegerProperty&lt;br/&gt;- productID: SimpleIntegerProperty&lt;br/&gt;- unit: SimpleStringProperty&lt;br/&gt;- productName: SimpleStringProperty&lt;br/&gt;- totalPrice: SimpleDoubleProperty&lt;br/&gt;- productCode: SimpleStringProperty&lt;br/&gt;- price: SimpleDoubleProperty&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ getTotalPrice(): double&lt;br/&gt;+ totalPriceProperty(): SimpleDoubleProperty&lt;br/&gt;+ setProductCode(String): void&lt;br/&gt;+ setProductName(String): void&lt;br/&gt;+ productNameProperty(): SimpleStringProperty&lt;br/&gt;+ unitProperty(): SimpleStringProperty&lt;br/&gt;+ getQuantity(): int&lt;br/&gt;+ getPrice(): double&lt;br/&gt;+ setProductID(int): void&lt;br/&gt;+ quantityProperty(): SimpleIntegerProperty&lt;br/&gt;+ setPrice(double): void&lt;br/&gt;+ getProductName(): String&lt;br/&gt;+ getProductCode(): String&lt;br/&gt;+ setQuantity(int): void&lt;br/&gt;+ productCodeProperty(): SimpleStringProperty&lt;br/&gt;+ getUnit(): String&lt;br/&gt;+ getProductID(): int&lt;br/&gt;+ productIDProperty(): SimpleIntegerProperty&lt;br/&gt;+ setTotalPrice(double): void&lt;br/&gt;+ setUnit(String): void&lt;br/&gt;+ priceProperty(): SimpleDoubleProperty&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;">
+      <mxGeometry x="111" y="891" width="409" height="763" as="geometry" />
+    </mxCell>
+    <mxCell id="node8" parent="1" vertex="1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;switchToAdminLoginController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ switchToAdminLoginController(): &lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;">
+      <mxGeometry x="169" y="675" width="292" height="68" as="geometry" />
+    </mxCell>
+    <mxCell id="node0" parent="1" vertex="1" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;tabData&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ tabData(Double, Double, Double, Double): &lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;- miniTotal: Double&lt;br/&gt;- discount: Double&lt;br/&gt;- totalPrice: Double&lt;br/&gt;- exchangeMoney: Double&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0 0 0 4px;line-height:1.6;&quot;&gt;+ setDiscount(Double): void&lt;br/&gt;+ getTotalPrice(): Double&lt;br/&gt;+ getExchangeMoney(): Double&lt;br/&gt;+ setExchangeMoney(Double): void&lt;br/&gt;+ setTotalPrice(Double): void&lt;br/&gt;+ setMiniTotal(Double): void&lt;br/&gt;+ getDiscount(): Double&lt;br/&gt;+ getMiniTotal(): Double&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=14;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;">
+      <mxGeometry x="1421" y="1168" width="310" height="357" as="geometry" />
+    </mxCell>
+    <mxCell id="edge2" edge="1" value="" parent="1" source="node2" target="node3" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=1.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.154;entryY=1.000;entryDx=0;entryDy=0;">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="810" y="2177" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label12" parent="edge2" vertex="1" connectable="0" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="810" y="2093" as="geometry" />
+    </mxCell>
+    <mxCell id="label16" parent="edge2" vertex="1" connectable="0" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="805" y="1728" as="geometry" />
+    </mxCell>
+    <mxCell id="label17" parent="edge2" vertex="1" connectable="0" value="dbScreenController" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="810" y="1902" as="geometry" />
+    </mxCell>
+    <mxCell id="edge0" edge="1" value="" parent="1" source="node3" target="node6" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=0.000;exitY=0.815;exitDx=0;exitDy=0;entryX=1.017;entryY=0.411;entryDx=0;entryDy=0;">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="677" y="1323" />
+          <mxPoint x="677" y="1204" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label2" parent="edge0" vertex="1" connectable="0" value="«create»" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="642" y="1174" as="geometry" />
+    </mxCell>
+    <mxCell id="edge4" edge="1" value="" parent="1" source="node3" target="node0" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=1.000;exitY=0.826;exitDx=0;exitDy=0;entryX=0.000;entryY=0.500;entryDx=0;entryDy=0;">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <Array as="points" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label24" parent="edge4" vertex="1" connectable="0" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="1387" y="1336" as="geometry" />
+    </mxCell>
+    <mxCell id="label28" parent="edge4" vertex="1" connectable="0" value="*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="1340" y="1326" as="geometry" />
+    </mxCell>
+    <mxCell id="label29" parent="edge4" vertex="1" connectable="0" value="tabDataValues" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="1331" y="1379" as="geometry" />
+    </mxCell>
+    <mxCell id="edge5" edge="1" value="" parent="1" source="node3" target="node0" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=1.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.500;entryY=0.000;entryDx=0;entryDy=0;">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1576" y="644" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label32" parent="edge5" vertex="1" connectable="0" value="«create»" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="1560" y="888" as="geometry" />
+    </mxCell>
+    <mxCell id="edge7" edge="1" value="" parent="1" source="node1" target="node3" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=0.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.154;entryY=1.000;entryDx=0;entryDy=0;">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="810" y="2121" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label42" parent="edge7" vertex="1" connectable="0" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="799" y="2148" as="geometry" />
+    </mxCell>
+    <mxCell id="label46" parent="edge7" vertex="1" connectable="0" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="905" y="2116" as="geometry" />
+    </mxCell>
+    <mxCell id="label47" parent="edge7" vertex="1" connectable="0" value="dashboardController" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="697" y="2101" as="geometry" />
+    </mxCell>
+    <mxCell id="edge3" edge="1" value="" parent="1" source="node5" target="node3" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=1.000;exitY=0.429;exitDx=0;exitDy=0;entryX=0.077;entryY=1.000;entryDx=0;entryDy=0;">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="774" y="1863" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label20" parent="edge3" vertex="1" connectable="0" value="«create»" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="738" y="1790" as="geometry" />
+    </mxCell>
+    <mxCell id="edge6" edge="1" value="" parent="1" source="node5" target="node3" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=0;startArrow=diamondThinstartSize=12;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=1.000;exitY=0.500;exitDx=0;exitDy=0;entryX=0.154;entryY=1.000;entryDx=0;entryDy=0;">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="810" y="1878" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label36" parent="edge6" vertex="1" connectable="0" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="669" y="1862" as="geometry" />
+    </mxCell>
+    <mxCell id="label40" parent="edge6" vertex="1" connectable="0" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="799" y="1774" as="geometry" />
+    </mxCell>
+    <mxCell id="label41" parent="edge6" vertex="1" connectable="0" value="dbController" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="810" y="1813" as="geometry" />
+    </mxCell>
+    <mxCell id="edge1" edge="1" value="" parent="1" source="node5" target="node7" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=0.926;exitY=1.000;exitDx=0;exitDy=0;entryX=0.939;entryY=0.000;entryDx=0;entryDy=0;">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <Array as="points" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label8" parent="edge1" vertex="1" connectable="0" value="«create»" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="642" y="2458" as="geometry" />
+    </mxCell>
+    <mxCell id="edge8" edge="1" value="" parent="1" source="node7" target="node4" style="html=1;rounded=1;edgeStyle=orthogonalEdgeStyle;dashed=1;startArrow=none;endArrow=openThin;endSize=12;strokeColor=#595959;exitX=1.000;exitY=0.436;exitDx=0;exitDy=0;entryX=0.000;entryY=0.381;entryDx=0;entryDy=0;">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <Array as="points" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="label50" parent="edge8" vertex="1" connectable="0" value="«create»" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;strokeColor=default;">
+      <mxGeometry x="767" y="2591" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>

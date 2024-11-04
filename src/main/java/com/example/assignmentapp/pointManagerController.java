@@ -24,7 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class pointManagerController implements Initializable {
+public class pointManagerController extends loginScreenController implements Initializable {
     @FXML
     private TableColumn<pointItem, String> colCustomerName;
 
