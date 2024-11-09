@@ -509,10 +509,10 @@ public class dashboardScreenController implements Initializable {
     }
 
 
-    private void refreshImageView(String imageFileName) {
-        Image image = new Image(getClass().getResourceAsStream("/com/example/assignmentapp/Images/" + imageFileName));
-        imageView.setImage(image);
-    }
+//    private void refreshImageView(String imageFileName) {
+//        Image image = new Image(getClass().getResourceAsStream("/com/example/assignmentapp/Images/" + imageFileName));
+//        imageView.setImage(image);
+//    }
 
 
     public void loadProduct(String barcode) throws SQLException {
@@ -557,12 +557,22 @@ public class dashboardScreenController implements Initializable {
             loadMoney(productPriceFromDatabase, discountPrice);
 
             System.out.println(productImage);
-            Image image = new Image(getClass().getResourceAsStream("/com/example/assignmentapp/Images/" + productImage));
+//            Image image = new Image(getClass().getResourceAsStream("/com/example/assignmentapp/Images/" + productImage));
             System.out.println("Image path: " + "/com/example/assignmentapp/Images/" + productImage);
+
+            String imagePath = "file:D:\\CODE\\Java\\JavaFX\\assignmentApp\\src\\main\\resources\\com\\example\\assignmentapp\\Images\\" + productImage;
+
+//            String imgPath = "Images/" + productImage;
+//            Image image = new Image(getClass().getResourceAsStream(imagePath));
+
+            Image image = new Image(imagePath);
+            if (image.isError()) {
+                System.out.println("Image not found at: " + imagePath);
+            }
 
             imageView.setImage(image);
 //            System.out.println(productImage);
-            refreshImageView(productImage);
+//            refreshImageView(productImage);
         }
     }
 
@@ -956,6 +966,38 @@ public class dashboardScreenController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void openInventory(ActionEvent actionEvent) throws IOException {
+        // Load the new screen (inventory management)
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyKhoHang.fxml"));
+        Parent root = loader.load();
+        Stage currentStage = (Stage) tableView.getScene().getWindow();
+
+        // Set up the new stage for inventory management
+        Stage stage = new Stage();
+        stage.setTitle("Quản lý kho hàng");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+        // Close the current stage
+        currentStage.close();
+
+
+        stage.setOnCloseRequest(event -> {
+            try {
+                // Reload and reopen the first screen when inventory closes
+                FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("dashboardScreen.fxml"));
+                Parent mainRoot = mainLoader.load();
+                Stage mainStage = new Stage();
+                mainStage.setScene(new Scene(mainRoot));
+                mainStage.setTitle("First Screen");
+                mainStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void menuInventoryClicked() throws IOException {

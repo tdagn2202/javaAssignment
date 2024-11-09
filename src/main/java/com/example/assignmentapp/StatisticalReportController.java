@@ -96,13 +96,13 @@ public class StatisticalReportController {
 
             while (resultSet.next()) {
                 dataList.add(new MyData(
-                        resultSet.getString("categoryName"),  // category.categoryName
-                        resultSet.getString("productBarcode"),     // productdetails.productBarcode
-                        resultSet.getString("productName"),   // productdetails.productName
+                        resultSet.getString("Category_Name"),  // category.categoryName
+                        resultSet.getString("Product_ID"),     // productdetails.productBarcode
+                        resultSet.getString("Product_Name"),   // productdetails.productName
                         resultSet.getDate("Bill_Date"),        // bill.billDate
-                        resultSet.getInt("detailQuantity"),     // bill_details.detailQuantity
-                        resultSet.getDouble("productPrice"),  // productdetails.productPrice
-                        resultSet.getDouble("detailAmount")     // bill_details.detailAmount
+                        resultSet.getInt("Bill_Quantity"),     // bill_details.detailQuantity
+                        resultSet.getDouble("Product_Price"),  // productdetails.productPrice
+                        resultSet.getDouble("Bill_Amount")     // bill_details.detailAmount
                 ));
             }
             TableView.setItems(dataList);
@@ -116,7 +116,7 @@ public class StatisticalReportController {
     private ObservableList<String> fillComboBoxCategory() {
         ObservableList<String> categories = FXCollections.observableArrayList();
 
-        String query = "SELECT Category_Name FROM Category";
+        String query = "SELECT categoryName FROM Category";
 
         try (Connection connection = connectionClass.getConnection();
              Statement statement = connection.createStatement();
@@ -193,6 +193,7 @@ public class StatisticalReportController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+        // Determine the date range based on selected radio buttons
         if (Rabt_Day.isSelected()) {
             startDate = LocalDate.now();
             endDate = LocalDate.now();
@@ -207,26 +208,38 @@ public class StatisticalReportController {
             endDate = DatePicker_To.getValue();
         }
 
-        String query = "SELECT Category.Category_Name, Product.Product_ID, Product.Product_Name, Bill.Bill_Date, Bill.Bill_Quantity, Product.Product_Price, Bill.Bill_Amount " +
-                "FROM Bill " +
-                "JOIN Product ON Bill.Product_ID = Product.Product_ID " +
-                "JOIN Category ON Product.Category_ID = Category.Category_ID " +
-                "WHERE Bill.Bill_Date BETWEEN '" + startDate.format(formatter) + "' AND '" + endDate.format(formatter) + "'";
+        // Build the query with updated table and column names
+        String query = "SELECT category.categoryName AS Category_Name, " +
+                "productdetails.productBarcode AS Product_ID, " +
+                "productdetails.productName AS Product_Name, " +
+                "bill.billDate AS Bill_Date, " +
+                "bill_details.detailQuantity AS Bill_Quantity, " +
+                "productdetails.productPrice AS Product_Price, " +
+                "bill_details.detailAmount AS Bill_Amount " +
+                "FROM bill " +
+                "JOIN bill_details ON bill.billId = bill_details.billId " +
+                "JOIN productdetails ON bill_details.productBarcode = productdetails.productBarcode " +
+                "JOIN category ON productdetails.categoryID = category.categoryId " +
+                "WHERE bill.billDate BETWEEN '" + startDate.format(formatter) + "' AND '" + endDate.format(formatter) + "'";
 
+        // Add category filter if a specific category is selected
         if (selectedCategory != null && !selectedCategory.isEmpty() && !selectedCategory.equals("ALL")) {
-            query += " AND Category.Category_Name = '" + selectedCategory + "'";
+            query += " AND category.categoryName = '" + selectedCategory + "'";
         }
 
         loadTableview(query);
     }
 
 
+
     public void switchToMain(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));
+        root = FXMLLoader.load(getClass().getResource("dashboardScreen.fxml"));
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        currentStage.close();
     }
 
 
