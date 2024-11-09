@@ -15,6 +15,8 @@ public class main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("loginScreen.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("addingImage.fxml"));
+
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Đăng nhập");
         stage.setScene(scene);

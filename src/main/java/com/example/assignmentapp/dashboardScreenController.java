@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
@@ -23,7 +24,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -99,6 +102,15 @@ public class dashboardScreenController implements Initializable {
     private PauseTransition pausePhoneNumber;
     @FXML
     private ImageView imageView;
+
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
     @FXML
     private Label lblProductName;
     @FXML
@@ -151,6 +163,9 @@ public class dashboardScreenController implements Initializable {
 
     @FXML
     private TabPane pane;
+
+    @FXML
+    private MenuItem menuInventory;
 
     public Button getBtnNewBill() {
         return btnNewBill;
@@ -493,6 +508,13 @@ public class dashboardScreenController implements Initializable {
         }
     }
 
+
+    private void refreshImageView(String imageFileName) {
+        Image image = new Image(getClass().getResourceAsStream("/com/example/assignmentapp/Images/" + imageFileName));
+        imageView.setImage(image);
+    }
+
+
     public void loadProduct(String barcode) throws SQLException {
         String productNameFromDatabase = "Sản phẩm";
         String productSupplierFromDatabase = "Nhà cung cấp";
@@ -533,14 +555,74 @@ public class dashboardScreenController implements Initializable {
             lblBarcode.setText(productBarcodeFromDatabase);
             lblUnit.setText(productUnitFromDatabase);
             loadMoney(productPriceFromDatabase, discountPrice);
+
+            System.out.println(productImage);
             Image image = new Image(getClass().getResourceAsStream("/com/example/assignmentapp/Images/" + productImage));
             System.out.println("Image path: " + "/com/example/assignmentapp/Images/" + productImage);
 
             imageView.setImage(image);
-
+//            System.out.println(productImage);
+            refreshImageView(productImage);
         }
     }
 
+//    public void loadProduct(String barcode) throws SQLException {
+//        String productNameFromDatabase = "Sản phẩm";
+//        String productSupplierFromDatabase = "Nhà cung cấp";
+//        String productUnitFromDatabase = "Đơn vị";
+//        Double productPriceFromDatabase = 0.0;
+//        String productBarcodeFromDatabase ="00000000000";
+//        String productImage = "";
+//        Double discountPrice = getDiscountPrice();
+//        Connection connection = connectionClass.getConnection();
+//
+//        if(connection!=null) {
+//            System.out.println("loadProduct database connected");
+//
+//            try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM productdetails WHERE productBarCode = ?")) {
+//                preparedStatement.setString(1, barcode);
+//
+//                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+//                    if (resultSet.next()) {
+//                        productBarcodeFromDatabase = resultSet.getString("productBarCode");
+//                        productNameFromDatabase = resultSet.getString("productName");
+//                        productUnitFromDatabase = resultSet.getString("productUnit");
+//                        productPriceFromDatabase = resultSet.getDouble("productPrice");
+//                        productImage = resultSet.getString("productImage");
+//
+//                        // Check if image file exists
+//                        String imagePath = "/com/example/assignmentapp/Images/" + productImage;
+//                        File imageFile = new File(imagePath);
+//                        if (imageFile.exists()) {
+//                            try (InputStream imageStream = getClass().getResourceAsStream(imagePath)) {
+//                                Image image = new Image(imageStream);
+//                                imageView.setImage(image);
+//                            } catch (IOException e) {
+//                                System.out.println("Error loading image: " + e.getMessage());
+//                                // Display error message or set default image
+//                            }
+//                        } else {
+//                            System.out.println("Image file not found: " + imagePath);
+//                            // Display message for missing image or set default image
+//                        }
+//                    }
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            } finally {
+//                try {
+//                    connection.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            lblProductName.setText(productNameFromDatabase);
+//            lblBarcode.setText(productBarcodeFromDatabase);
+//            lblUnit.setText(productUnitFromDatabase);
+//            loadMoney(productPriceFromDatabase, discountPrice);
+//        }
+//    }
     public void loadMoney(Double pdP, Double discountPrice){
         lblPrice.setText(String.valueOf(pdP));
         lblTotalPrice.setText(calcTotalPrice(currentTableView, discountPrice));
@@ -752,13 +834,7 @@ public class dashboardScreenController implements Initializable {
             String sqlQueryAddCustomer = "INSERT INTO transaction(customerPhoneNumber, totalAmount, pointEarned, pointUsed) value (?, ?, ?, ?);";
             String sqlGetData = "select * from customer where customerPhoneNumber = ?;";
             String sqlQueryUpdateCustomer = "update customer set points = ? where customerPhoneNumber = ?;";
-            String sqlQuery = "INSERT INTO bill(productBarcode, billDate, billQuantity, billTotalAmount) value (?, ?, ?, ?)";
 
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            preparedStatement.setString(1, barCodeForBill);
-            preparedStatement.setString(2, formattedDate);
-            preparedStatement.setString(3, String.valueOf(quantityBill));
-            preparedStatement.setString(4, totalBill);
 
 
             PreparedStatement trasactionPreparedStatement = connection.prepareStatement(sqlQueryAddCustomer);
@@ -806,8 +882,6 @@ public class dashboardScreenController implements Initializable {
                 }
             }
 
-            preparedStatement.executeUpdate();
-
 
         } catch (Exception exception){
             exception.printStackTrace();
@@ -818,6 +892,8 @@ public class dashboardScreenController implements Initializable {
         } catch (Exception exception){
             System.out.println("Giá tiền trống");
         }
+
+        createBill();
 
     }
 
@@ -861,6 +937,72 @@ public class dashboardScreenController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void openDiscountManager(ActionEvent actionEvent) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("discountManager.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Quản lý giảm giá");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void openStaticticalManager(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Statistical_Report.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Quản lý giảm giá");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void menuInventoryClicked() throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addingImage.fxml"));
+        Parent root = loader.load();
+        addingImageController addingImageController = loader.getController();
+
+        addingImageController.setDbController(this);
+
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void createBill() {
+        try (Connection connection = connectionClass.getConnection()) {
+            ObservableList<productDetails> selectedProducts = FXCollections.observableArrayList();
+            selectedProducts = tableView.getItems();
+            String insertBillSQL = "INSERT INTO Bill (billDate) VALUES (CURDATE())";
+            try (Statement statement = connection.createStatement()) {
+                statement.executeUpdate(insertBillSQL, Statement.RETURN_GENERATED_KEYS);
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                int billID = 0;
+                if (generatedKeys.next()) {
+                    billID = generatedKeys.getInt(1);
+                }
+
+                for (productDetails product : selectedProducts) {
+                    String insertDetailSQL = "INSERT INTO Bill_Details (billId, productBarcode, detailQuantity, detailAmount) VALUES (?, ?, ?, ?)";
+                    try (PreparedStatement preparedStatement = connection.prepareStatement(insertDetailSQL)) {
+                        preparedStatement.setInt(1, billID); // Sử dụng Bill_ID vừa tạo
+                        preparedStatement.setString(2, product.getProductCode()); // Product_ID
+                        preparedStatement.setInt(3, product.getQuantity()); // Số lượng
+                        preparedStatement.setDouble(4, product.getTotalPrice()); // Thành tiền
+                        preparedStatement.executeUpdate();
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.thongkedemo.StatisticalReportController">
+   <children>
+      <Button fx:id="EXIT" alignment="CENTER" layoutX="1177.0" layoutY="670.0" mnemonicParsing="false" onAction="#switchToMain" prefHeight="25.0" prefWidth="82.0" text="EXIT" textAlignment="CENTER" textFill="RED" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="21.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <DatePicker fx:id="DatePicker_From" layoutX="50.0" layoutY="42.0" AnchorPane.leftAnchor="50.0" />
+      <DatePicker fx:id="DatePicker_To" layoutX="270.0" layoutY="42.0" AnchorPane.leftAnchor="270.0" />
+      <RadioButton fx:id="Rabt_Year" layoutX="640.0" layoutY="46.0" mnemonicParsing="false" text="Năm" AnchorPane.leftAnchor="640.0">
+         <toggleGroup>
+            <ToggleGroup fx:id="timeTypeGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="Rabt_Month" layoutX="570.0" layoutY="46.0" mnemonicParsing="false" text="Tháng " toggleGroup="$timeTypeGroup" AnchorPane.leftAnchor="570.0" />
+      <RadioButton fx:id="Rabt_Day" layoutX="500.0" layoutY="46.0" mnemonicParsing="false" text="Hôm nay" toggleGroup="$timeTypeGroup" AnchorPane.leftAnchor="490.0" />
+      <ComboBox fx:id="comboBox_Category" layoutX="819.0" layoutY="34.0" prefHeight="33.0" prefWidth="150.0" promptText="Loại sản phẩm" AnchorPane.leftAnchor="819.0" />
+      <Button fx:id="OK" layoutX="1076.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleOkButton" prefHeight="53.0" prefWidth="142.0" text="THỐNG KÊ" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="28.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label layoutX="15.0" layoutY="46.0" text="Từ" AnchorPane.leftAnchor="15.0" />
+      <Label layoutX="245.0" layoutY="46.0" text="Đến" AnchorPane.leftAnchor="245.0" />
+      <TableView fx:id="TableView" layoutY="135.0" prefHeight="349.0" prefWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="colType" prefWidth="180.0" text="Loại sản phẩm" />
+          <TableColumn fx:id="colCode" prefWidth="180.0" text="Mã sản phẩm" />
+            <TableColumn fx:id="colName" prefWidth="290.0" text="Tên sản phẩm" />
+            <TableColumn fx:id="colDate" minWidth="0.0" prefWidth="170.0" text="Ngày bán" />
+            <TableColumn fx:id="colQuantity" minWidth="4.0" prefWidth="120.0" text="Số lượng" />
+            <TableColumn fx:id="colUPrice" prefWidth="170.0" text="Đơn giá" />
+            <TableColumn fx:id="colAmount" prefWidth="170.0" text="Thành tiền" />
+        </columns>
+      </TableView>
+      <Button fx:id="bt_SortByIncome" layoutX="280.0" layoutY="84.0" mnemonicParsing="false" onAction="#setBt_SortByAmount" text="Lọc theo tổng tiền" AnchorPane.leftAnchor="300.0" />
+      <Button fx:id="bt_SortByDate" layoutX="30.0" layoutY="84.0" mnemonicParsing="false" onAction="#setBt_SortByDate" text="Lọc theo ngày" AnchorPane.leftAnchor="30.0" />
+      <Button fx:id="bt_SortByCategory" layoutX="211.0" layoutY="84.0" mnemonicParsing="false" onAction="#setBt_SortByCategory" text="Lọc theo loại sản phẩm" AnchorPane.leftAnchor="140.0" />
+      <Label fx:id="label_TotalProductCategories" layoutX="83.0" layoutY="500.0" text="Tổng các loại hàng đã bán:" AnchorPane.leftAnchor="83.0" AnchorPane.topAnchor="520.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_TotalProductsSold" layoutX="83.0" layoutY="560.0" text="Tổng số lượng sản phẩm đã bán:" AnchorPane.leftAnchor="83.0" AnchorPane.topAnchor="580.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_TotalIncome" layoutX="83.0" layoutY="620.0" text="Tổng doanh thu:" textFill="#57ff00" AnchorPane.leftAnchor="83.0" AnchorPane.topAnchor="640.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="bt_reset" layoutX="1134.0" layoutY="97.0" mnemonicParsing="false" onAction="#initialize" text="Tải lại trang" />
+      <RadioButton layoutX="710.0" layoutY="46.0" mnemonicParsing="false" text="None" toggleGroup="$timeTypeGroup" AnchorPane.leftAnchor="710.0" />
+   </children>
+</AnchorPane>

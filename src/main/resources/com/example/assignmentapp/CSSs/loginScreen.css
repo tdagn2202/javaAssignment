@@ -21,3 +21,14 @@
 #lblUsername{
     -fx-border-width: 10px;
 }
+
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: -fx-primary-color;
+    -fx-background-radius: 0;
+}
+
+.spinner {
+    -fx-body-color: red;
+}

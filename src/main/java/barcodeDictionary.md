@@ -13,6 +13,9 @@
 
 8932345678901: Sữa tắm cho bé Johnson's chứa sữa và gạo 500ml
 => Link: https://www.bachhoaxanh.com/sua-tam-cho-be/sua-tam-johnsons-baby-chua-sua-va-gao-500ml
+
+529876543000: Xà bông nước hoa X-Men For Boss Intense thơm mạnh mẽ 75g
+=> Link: Xà bông nước hoa X-Men For Boss Intense thơm mạnh mẽ 75g
 ```
 ```sql
 UPDATE products SET productBarCode = '8932345678908' WHERE productBarCode = '893234567890';

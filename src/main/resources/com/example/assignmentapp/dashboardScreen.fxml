@@ -297,9 +297,9 @@
          <menus>
             <Menu mnemonicParsing="false" text="Admin">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Thống kê doanh thu" />
-                  <MenuItem mnemonicParsing="false" text="Quản lý mặt hàng" />
-                  <MenuItem mnemonicParsing="false" text="Quản lý giảm giá" />
+                  <MenuItem mnemonicParsing="false" onAction="#openStaticticalManager" text="Thống kê doanh thu" />
+                  <MenuItem fx:id="menuInventory" mnemonicParsing="false" onAction="#menuInventoryClicked" text="Quản lý mặt hàng" />
+                  <MenuItem fx:id="menuDiscount" mnemonicParsing="false" onAction="#openDiscountManager" text="Quản lý giảm giá" />
                   <MenuItem mnemonicParsing="false" onAction="#openPointManager" text="Quản lý điểm thưởng" />
                </items>
             </Menu>
