@@ -67,4 +67,25 @@
     -fx-text-fill: white;
 }
 
+.button {
+    -fx-background-radius: 25;
+    -fx-background-color: white;
+}
 
+.button:hover {
+    -fx-text-fill: #12469a;
+}
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-background-radius: 25;
+}
+
+.radio-button .radio {
+    -fx-background-color: white;
+}
+
+.radio-button:selected .radio .dot {
+    -fx-background-color: #12469a;
+    -fx-background-insets: 0;
+}

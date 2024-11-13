@@ -400,7 +400,7 @@ public void khohangUpdate() throws SQLException {
     }
 
     //Chon san pham tren bang
-    public void khohangSelectProduct(){
+    public void khohangSelectProduct() {
         warehouseItems product = khohang_table.getSelectionModel().getSelectedItem();
         if (product == null) return; // Kiểm tra nếu không có sản phẩm nào được chọn
 
@@ -414,25 +414,35 @@ public void khohangUpdate() throws SQLException {
         category_combobox.getSelectionModel().select(String.valueOf(product.getCategoryID()));
         unit_combobox.getSelectionModel().select(product.getUnit());
 
-
         // Cập nhật đường dẫn ảnh từ sản phẩm đã chọn
-        data.path = product.getImage(); // Lấy đường dẫn từ database
+        data.path = product.getImage().trim(); // Trim whitespace to avoid errors
         System.out.println("Product ID: " + product.getProductID());
+        System.out.println("Image Path from DB: " + data.path);
 
-        if (data.path != null && !data.path.isEmpty()) {
-            // Thêm "file:" vào trước đường dẫn nếu cần thiết
-            File file = new File(data.path);
-            if (file.exists()) {
-                image = new Image(file.toURI().toString(), 203, 117, false, true);
-                khohang_imageview.setImage(image);
+        // Construct image path
+        String imagePath = "D:\\CODE\\Java\\JavaFX\\assignmentApp\\src\\main\\resources\\com\\example\\assignmentapp\\Images\\" + data.path;
+        System.out.println("Full Image Path: " + imagePath); // Print full path to verify correctness
+
+        try {
+            if (!data.path.isEmpty()) {
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    image = new Image(file.toURI().toString(), 203, 117, false, true);
+                    khohang_imageview.setImage(image);
+                } else {
+                    System.out.println("Image file does not exist at specified path: " + imagePath);
+                    khohang_imageview.setImage(null); // Reset ImageView if no image found
+                }
             } else {
-                System.out.println("File ảnh không tồn tại: " + data.path);
-                khohang_imageview.setImage(null); // Nếu không có ảnh, để trống ImageView
+                khohang_imageview.setImage(null); // Reset ImageView if path is empty
             }
-        } else {
-            khohang_imageview.setImage(null); // Nếu không có ảnh, để trống ImageView
+        } catch (Exception e) {
+            System.out.println("Error loading image: " + e.getMessage());
+            khohang_imageview.setImage(null); // Reset ImageView on error
         }
     }
+
+
 
 
     public void moveImage(File file, String desiredDestination){

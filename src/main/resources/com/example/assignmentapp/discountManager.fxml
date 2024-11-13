@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="889.0" prefWidth="1419.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.assignmentapp.discountManagerController">
@@ -16,35 +20,14 @@
             <children>
                 <BorderPane layoutX="108.0" layoutY="56.0" prefHeight="889.6" prefWidth="1419.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <left>
-                        <AnchorPane prefHeight="890.0" prefWidth="262.0" BorderPane.alignment="CENTER">
-                            <children>
-                                <AnchorPane layoutX="31.0" layoutY="184.0" prefHeight="889.6" prefWidth="262.4" style="-fx-background-color: #C6E2FF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                    <children>
-                                        <AnchorPane layoutX="1.0" prefHeight="105.0" prefWidth="262.0" AnchorPane.bottomAnchor="784.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <children>
-                                                <Label layoutX="20.0" layoutY="8.0" prefHeight="90.0" prefWidth="231.0" text="Quản lý giảm giá" textFill="#070789">
-                                                    <font>
-                                                        <Font size="25.0" />
-                                                    </font>
-                                                </Label>
-                                            </children>
-                                        </AnchorPane>
-                                        <Button layoutX="57.0" layoutY="149.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" text="KHUYẾN MÃI" textFill="#0a3edc">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Button>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </AnchorPane>
+                        <AnchorPane prefHeight="889.0" prefWidth="0.0" BorderPane.alignment="CENTER" />
                     </left>
                     <center>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f0f1f3;" stylesheets="@CSSs/dashboardScreen.css" BorderPane.alignment="CENTER">
                             <children>
-                                <AnchorPane layoutX="15.0" layoutY="14.0" prefHeight="526.0" prefWidth="1107.0" style="-fx-background-color: #FFFAF0;" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+                                <AnchorPane layoutX="15.0" layoutY="14.0" prefHeight="526.0" prefWidth="1391.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                                     <children>
-                                        <TableView fx:id="tableData" layoutX="14.0" layoutY="14.0" onMouseClicked="#selectData" prefHeight="477.0" prefWidth="1058.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                        <TableView fx:id="tableData" layoutX="30.0" layoutY="100.0" onMouseClicked="#selectData" prefHeight="477.0" prefWidth="1058.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="-40.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="100.0">
                                             <columns>
                                                 <TableColumn fx:id="stt" prefWidth="172.00004041194916" text="Mã giảm giá" />
                                                 <TableColumn fx:id="clName" prefWidth="172.00004041194916" text="Phân loại" />
@@ -54,48 +37,126 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                             </columnResizePolicy>
                                         </TableView>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane layoutX="88.0" layoutY="588.0" prefHeight="286.0" prefWidth="1107.0" style="-fx-background-color: #FFFAF0;" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
-                                    <children>
-                                        <Label layoutX="32.0" layoutY="36.0" text="Mã giảm giá:">
-                                            <font>
-                                                <Font size="15.0" />
-                                            </font>
-                                        </Label>
-                                        <TextField fx:id="b_stt" layoutX="169.0" layoutY="26.0" prefHeight="41.0" prefWidth="196.0" />
-                                        <TextField fx:id="b_sale" layoutX="523.0" layoutY="25.0" prefHeight="41.0" prefWidth="196.0" />
-                                        <Label layoutX="451.0" layoutY="35.0" prefHeight="22.0" prefWidth="94.0" text="Tỉ lệ (%):">
-                                            <font>
-                                                <Font size="15.0" />
-                                            </font>
-                                        </Label>
-                                        <Button fx:id="update" layoutX="380.0" layoutY="125.0" mnemonicParsing="false" onAction="#update" prefHeight="26.0" prefWidth="149.0" text="Cập nhật">
-                                            <font>
-                                                <Font size="17.0" />
-                                            </font>
-                                        </Button>
-                                        <Button layoutX="556.0" layoutY="124.0" mnemonicParsing="false" onAction="#clear" prefHeight="26.0" prefWidth="149.0" text="Xóa ô nhập">
-                                            <font>
-                                                <Font size="17.0" />
-                                            </font>
-                                        </Button>
-                                        <Button layoutX="733.0" layoutY="123.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="149.0" text="Xóa giảm giá" textFill="RED">
-                                            <font>
-                                                <Font size="17.0" />
-                                            </font>
-                                        </Button>
-                                        <Button layoutX="173.0" layoutY="124.0" mnemonicParsing="false" onAction="#addCate" prefHeight="38.0" prefWidth="184.0" text="Thêm giảm giá mới">
-                                            <font>
-                                                <Font size="17.0" />
-                                            </font>
-                                        </Button>
-                              <TextField fx:id="txtCategoryId" layoutX="860.0" layoutY="26.0" prefHeight="41.0" prefWidth="196.0" />
-                              <Label layoutX="788.0" layoutY="36.0" prefHeight="22.0" prefWidth="94.0" text="Loại hàng: ">
+                              <Label layoutX="587.0" layoutY="27.0" text="Quản lý giảm giá">
                                  <font>
-                                    <Font size="15.0" />
+                                    <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane layoutX="88.0" layoutY="588.0" prefHeight="286.0" prefWidth="1107.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+                                    <children>
+                              <Group layoutX="17.0" layoutY="32.0">
+                                 <children>
+                                    <Rectangle arcHeight="30.0" arcWidth="30.0" fill="WHITE" height="232.0" layoutX="9.0" layoutY="9.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-background-radius: 8; -fx-background-color: white;" width="1317.0">
+                                       <effect>
+                                          <DropShadow height="35.66" radius="13.665">
+                                             <color>
+                                                <Color opacity="0.1599999964237213" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
+                                    </Rectangle>
+                                    <Group layoutX="145.0" layoutY="53.0">
+                                       <children>
+                                                    <Label layoutY="11.0" text="Mã giảm giá:">
+                                                        <font>
+                                                            <Font size="15.0" />
+                                                        </font>
+                                                    </Label>
+                                                    <TextField fx:id="b_stt" layoutX="137.0" layoutY="1.0" prefHeight="41.0" prefWidth="196.0" promptText="Nhập mã giảm giá" style="-fx-background-radius: 8; -fx-background-color: white;">
+                                             <effect>
+                                                <DropShadow height="35.66" radius="20.9925" width="50.31">
+                                                   <color>
+                                                      <Color opacity="0.1599999964237213" />
+                                                   </color>
+                                                </DropShadow>
+                                             </effect>
+                                          </TextField>
+                                                    <TextField fx:id="b_sale" layoutX="491.0" prefHeight="41.0" prefWidth="196.0" promptText="Nhập tỉ lệ giảm giá" style="-fx-background-radius: 8; -fx-background-color: white;">
+                                             <effect>
+                                                <DropShadow height="35.66" radius="20.9925" width="50.31">
+                                                   <color>
+                                                      <Color opacity="0.1599999964237213" />
+                                                   </color>
+                                                </DropShadow>
+                                             </effect>
+                                          </TextField>
+                                                    <Label layoutX="419.0" layoutY="10.0" prefHeight="22.0" prefWidth="94.0" text="Tỉ lệ (%):">
+                                                        <font>
+                                                            <Font size="15.0" />
+                                                        </font>
+                                                    </Label>
+                                          <TextField fx:id="txtCategoryId" layoutX="828.0" layoutY="1.0" prefHeight="41.0" prefWidth="196.0" promptText="Nhập loại hàng" style="-fx-background-radius: 8; -fx-background-color: white;">
+                                             <effect>
+                                                <DropShadow height="35.66" radius="20.9925" width="50.31">
+                                                   <color>
+                                                      <Color opacity="0.1599999964237213" />
+                                                   </color>
+                                                </DropShadow>
+                                             </effect>
+                                          </TextField>
+                                          <Label layoutX="756.0" layoutY="11.0" prefHeight="22.0" prefWidth="94.0" text="Loại hàng: ">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Group>
+                                    <Group layoutX="307.0" layoutY="142.0">
+                                       <children>
+                                                    <Button fx:id="update" layoutX="216.0" layoutY="10.0" mnemonicParsing="false" onAction="#update" prefHeight="26.0" prefWidth="149.0" text="Cập nhật">
+                                                        <font>
+                                                            <Font size="17.0" />
+                                                        </font>
+                                             <effect>
+                                                <DropShadow>
+                                                   <color>
+                                                      <Color opacity="0.1599999964237213" />
+                                                   </color>
+                                                </DropShadow>
+                                             </effect>
+                                                    </Button>
+                                                    <Button layoutX="392.0" layoutY="9.0" mnemonicParsing="false" onAction="#clear" prefHeight="26.0" prefWidth="149.0" text="Xóa ô nhập">
+                                                        <font>
+                                                            <Font size="17.0" />
+                                                        </font>
+                                             <effect>
+                                                <DropShadow>
+                                                   <color>
+                                                      <Color opacity="0.1599999964237213" />
+                                                   </color>
+                                                </DropShadow>
+                                             </effect>
+                                                    </Button>
+                                                    <Button layoutX="569.0" layoutY="8.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="149.0" text="Xóa giảm giá" textFill="RED">
+                                                        <font>
+                                                            <Font size="17.0" />
+                                                        </font>
+                                             <effect>
+                                                <DropShadow>
+                                                   <color>
+                                                      <Color opacity="0.1599999964237213" />
+                                                   </color>
+                                                </DropShadow>
+                                             </effect>
+                                                    </Button>
+                                                    <Button layoutX="9.0" layoutY="9.0" mnemonicParsing="false" onAction="#addCate" prefHeight="38.0" prefWidth="184.0" text="Thêm giảm giá mới">
+                                                        <font>
+                                                            <Font size="17.0" />
+                                                        </font>
+                                             <effect>
+                                                <DropShadow>
+                                                   <color>
+                                                      <Color opacity="0.1599999964237213" />
+                                                   </color>
+                                                </DropShadow>
+                                             </effect>
+                                                    </Button>
+                                       </children>
+                                    </Group>
+                                 </children>
+                              </Group>
                                     </children>
                                 </AnchorPane>
                             </children>

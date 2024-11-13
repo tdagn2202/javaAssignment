@@ -1,12 +1,17 @@
 package dbConnection;
-import java.sql.Connection;
+import java.sql.*;
+
+import com.example.assignmentapp.reportGenerator.billData;
 import com.mysql.cj.jdbc.Driver;
+import com.mysql.cj.protocol.PacketReceivedTimeHolder;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class connectionClass {
-    public  static Connection getConnection(){
+
+    public static Connection getConnection() {
         Connection connection = null;
 
         try {
@@ -16,7 +21,7 @@ public class connectionClass {
             String username = "root";
             String password = "123456";
 
-            connection =DriverManager.getConnection(connectionString, username, password);
+            connection = DriverManager.getConnection(connectionString, username, password);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -24,5 +29,5 @@ public class connectionClass {
 
         return connection;
     }
-
 }
+

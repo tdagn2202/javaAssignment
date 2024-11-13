@@ -1,5 +1,7 @@
 package com.example.assignmentapp;
 
+import com.example.assignmentapp.reportGenerator.pdfGenerator;
+import com.mysql.cj.exceptions.ClosedOnExpiredPasswordException;
 import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -23,7 +25,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +33,6 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
-
 import dbConnection.connectionClass;
 import javafx.util.Duration;
 
@@ -167,6 +167,9 @@ public class dashboardScreenController implements Initializable {
     @FXML
     private MenuItem menuInventory;
 
+    @FXML
+    private RadioButton invoicePrint;
+
     public Button getBtnNewBill() {
         return btnNewBill;
     }
@@ -232,6 +235,7 @@ public class dashboardScreenController implements Initializable {
     public Double getConversionRate() {
         return conversionRate;
     }
+
 
     public void setConversionRate(Double conversionRate) {
         this.conversionRate = conversionRate;
@@ -662,17 +666,17 @@ public class dashboardScreenController implements Initializable {
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
                 preparedStatement.setString(1, barcode);
-
+                int categoryId = 0;
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {
                         String productCode = resultSet.getString("productBarCode");
                         String productName = resultSet.getString("productName");
                         String unit = resultSet.getString("productUnit");
                         double price = resultSet.getDouble("productPrice");
-
+                        categoryId = resultSet.getInt("categoryID");
                         boolean productFound = false;
                         for (productDetails product : productList) {
-                            if (product.getProductCode().equals(productCode)) { // Use productCode instead of barcode
+                            if (product.getProductCode().equals(productCode)) {
                                 int currentQuantity = product.getQuantity();
                                 product.setQuantity(currentQuantity + 1);
                                 product.setTotalPrice((currentQuantity + 1) * product.getPrice());
@@ -688,7 +692,7 @@ public class dashboardScreenController implements Initializable {
                                     new SimpleStringProperty(unit),
                                     new SimpleIntegerProperty(1),
                                     new SimpleDoubleProperty(price),
-                                    new SimpleDoubleProperty(1 * afterDiscountPrice(price))
+                                    new SimpleDoubleProperty(1 * afterDiscountPrice(price, categoryId))
                             );
                             productList.add(newProduct);
                             System.out.println("added");
@@ -788,12 +792,24 @@ public class dashboardScreenController implements Initializable {
 
 
 
-    public Double getDiscount(){
-        return  .0;
+    public Double getDiscount(int billId) throws SQLException {
+        Double discount = .0;
+
+        Connection connection = connectionClass.getConnection();
+        String sqlQuery = "SELECT * form discount where categoryId =?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        preparedStatement.setInt(1, billId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()){
+            discount = resultSet.getDouble("discountPercentage");
+        }
+
+        return discount;
     }
 
-    public double afterDiscountPrice(Double price){
-        return price - (price*getDiscount());
+    public double afterDiscountPrice(Double price, int billId){
+        return price - (price*getDiscount(billId));
     }
 
 
@@ -893,11 +909,12 @@ public class dashboardScreenController implements Initializable {
             }
 
 
+
+
         } catch (Exception exception){
             exception.printStackTrace();
         }
         try {
-
             System.out.println("Data inserted");
         } catch (Exception exception){
             System.out.println("Giá tiền trống");
@@ -962,7 +979,7 @@ public class dashboardScreenController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Statistical_Report.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
-        stage.setTitle("Quản lý giảm giá");
+        stage.setTitle("Thống kê");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -972,7 +989,7 @@ public class dashboardScreenController implements Initializable {
         // Load the new screen (inventory management)
         FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyKhoHang.fxml"));
         Parent root = loader.load();
-        Stage currentStage = (Stage) tableView.getScene().getWindow();
+        Stage currentStage = (Stage) txtPoint.getScene().getWindow();
 
         // Set up the new stage for inventory management
         Stage stage = new Stage();
@@ -1028,6 +1045,10 @@ public class dashboardScreenController implements Initializable {
                     billID = generatedKeys.getInt(1);
                 }
 
+                pdfGenerator pdfGenerator = new pdfGenerator();
+                Stage stage = (Stage) imageView.getScene().getWindow();
+
+
                 for (productDetails product : selectedProducts) {
                     String insertDetailSQL = "INSERT INTO Bill_Details (billId, productBarcode, detailQuantity, detailAmount) VALUES (?, ?, ?, ?)";
                     try (PreparedStatement preparedStatement = connection.prepareStatement(insertDetailSQL)) {
@@ -1038,13 +1059,15 @@ public class dashboardScreenController implements Initializable {
                         preparedStatement.executeUpdate();
                     }
                 }
+                if(invoicePrint.isSelected()){
+                    pdfGenerator.createInvoicePdf(stage, billID);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
-
 }
 
