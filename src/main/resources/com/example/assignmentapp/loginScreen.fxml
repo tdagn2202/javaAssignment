@@ -5,23 +5,53 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="scenePane" onMouseDragged="#screenDragged" onMousePressed="#sceenPressed" prefHeight="303.0" prefWidth="524.0" style="-fx-background-color: white; -fx-background-radius: 50;" stylesheets="@CSSs/loginScreen.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.assignmentapp.loginScreenController">
+<AnchorPane fx:id="scenePane" onMouseDragged="#screenDragged" onMousePressed="#sceenPressed" prefHeight="303.0" prefWidth="524.0" style="-fx-background-color: white; -fx-background-radius: 50;" stylesheets="@CSSs/dashboardScreen.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.assignmentapp.loginScreenController">
    <children>
-      <TextField fx:id="txtUsername" layoutX="217.0" layoutY="130.0" prefHeight="25.0" prefWidth="242.0" promptText="Nhập tên tài khoản" style="-fx-background-radius: 20;" />
-      <PasswordField fx:id="txtPassword" layoutX="217.0" layoutY="166.0" prefHeight="25.0" prefWidth="242.0" promptText="Nhập mật khẩu" style="-fx-background-radius: 20;" />
-      <Button fx:id="btnLogin" layoutX="296.0" layoutY="230.0" mnemonicParsing="false" onAction="#btnLoginClicked" prefHeight="31.0" prefWidth="91.0" style="-fx-background-radius: 50;" text="Đăng nhập">
+      <TextField fx:id="txtUsername" layoutX="217.0" layoutY="130.0" prefHeight="25.0" prefWidth="242.0" promptText="Nhập tên tài khoản" style="-fx-background-radius: 7; -fx-background-color: white;">
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.1599999964237213" />
+               </color>
+            </DropShadow>
+         </effect></TextField>
+      <PasswordField fx:id="txtPassword" layoutX="217.0" layoutY="166.0" prefHeight="25.0" prefWidth="242.0" promptText="Nhập mật khẩu" style="-fx-background-radius: 7; -fx-background-color: white;">
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.1599999964237213" />
+               </color>
+            </DropShadow>
+         </effect></PasswordField>
+      <Button fx:id="btnLogin" layoutX="296.0" layoutY="230.0" mnemonicParsing="false" onAction="#btnLoginClicked" prefHeight="31.0" prefWidth="91.0" style="-fx-background-radius: 50;" text="Đăng nhập" textFill="#12469a">
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Button>
+         </cursor>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.1599999964237213" />
+               </color>
+            </DropShadow>
+         </effect></Button>
       <Button fx:id="btnCancel" layoutX="399.0" layoutY="230.0" mnemonicParsing="false" onAction="#onCloseEvent" prefHeight="31.0" prefWidth="60.0" style="-fx-background-radius: 50;" text="Thoát">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.1599999964237213" />
+               </color>
+            </DropShadow>
+         </effect>
       </Button>
       <Label fx:id="lblUsername" layoutX="65.0" layoutY="130.0" text="Tên đăng nhập: ">
          <font>
@@ -33,7 +63,7 @@
             <Font name="Segoe UI" size="19.0" />
          </font>
       </Label>
-      <Text layoutX="182.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đăng nhập">
+      <Text fill="#12469a" layoutX="182.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đăng nhập">
          <font>
             <Font name="Segoe UI Bold" size="31.0" />
          </font>

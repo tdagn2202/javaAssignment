@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -51,23 +52,23 @@
             <VBox layoutX="8.0" layoutY="384.0">
                <children>
                   <TabPane fx:id="pane" prefHeight="480.0" prefWidth="1060.0" style="-fx-background-radius: 20;" stylesheets="@CSSs/dashboardScreen.css" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                      <Tab text="Phiếu tạm 1">
+                     <tabs>
+                        <Tab text="Phiếu tạm 1">
                            <content>
                               <TableView fx:id="tableView" prefHeight="444.0" prefWidth="1105.0" style="-fx-background-radius: 20;" VBox.vgrow="ALWAYS">
-                                <columns>
-                                  <TableColumn fx:id="sttColumn" prefWidth="75.0" text="STT" />
-                                  <TableColumn fx:id="productIDColumn" prefWidth="151.0" text="Mã sản phẩm" />
+                                 <columns>
+                                    <TableColumn fx:id="sttColumn" prefWidth="75.0" text="STT" />
+                                    <TableColumn fx:id="productIDColumn" prefWidth="151.0" text="Mã sản phẩm" />
                                     <TableColumn fx:id="productNameColumn" prefWidth="240.0" text="Tên sản phẩm" />
                                     <TableColumn fx:id="unitColumn" prefWidth="115.0" text="Đơn vị" />
                                     <TableColumn fx:id="quantityColumn" prefWidth="103.0" text="Số lượng" />
                                     <TableColumn fx:id="priceColumn" prefWidth="149.0" text="Đơn giá" />
                                     <TableColumn fx:id="totalPriceColumn" prefWidth="226.0" text="Thành tiền" />
-                                </columns>
+                                 </columns>
                               </TableView>
                            </content>
-                      </Tab>
-                    </tabs>
+                        </Tab>
+                     </tabs>
                   </TabPane>
                </children>
             </VBox>
@@ -294,29 +295,23 @@
    </center>
    <top>
       <MenuBar fx:id="menuABC" prefHeight="32.0" prefWidth="1419.0" stylesheets="@CSSs/dashboardScreen.css" BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Cài đặt">
+         <menus>
+            <Menu mnemonicParsing="false" text="Cài đặt">
                <items>
                   <Menu mnemonicParsing="false" text="Ngôn ngữ">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Tiếng Việt" />
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Tiếng Việt" />
                         <MenuItem mnemonicParsing="false" text="English" />
-                    </items>
+                     </items>
                   </Menu>
-                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
                </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Trợ giúp">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Thông tin phần mềm" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Tài khoản">
-              <items>
-                <MenuItem fx:id="menuSwitchRoleToAdmin" mnemonicParsing="false" onAction="#menuSwitchRoleToAdmin" text="Chuyển quyền" />
-              </items>
             </Menu>
-        </menus>
+            <Menu mnemonicParsing="false" text="Trợ giúp">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Thông tin phần mềm" />
+               </items>
+            </Menu>
+         </menus>
       </MenuBar>
    </top>
    <right>
@@ -342,7 +337,7 @@
                         </DropShadow>
                      </effect>
                   </Rectangle>
-                  <AnchorPane layoutX="12.0" layoutY="181.0" prefHeight="565.0" prefWidth="280.0">
+                  <AnchorPane layoutX="12.0" layoutY="179.0" prefHeight="565.0" prefWidth="280.0">
                      <children>
                         <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#124699" height="32.0" layoutY="245.0" stroke="#12469a" strokeType="INSIDE" width="278.0" />
                         <Pane layoutX="-3.0" layoutY="-21.0" prefHeight="104.0" prefWidth="279.0">
@@ -556,7 +551,7 @@
                               </DropShadow>
                            </effect>
                         </Button>
-                        <Button fx:id="btnPurchase" layoutX="-21.0" layoutY="360.0" mnemonicParsing="false" onAction="#btnPurchaseClicked" prefHeight="32.0" prefWidth="319.0" style="-fx-background-radius: 3250; -fx-background-color: white; -fx-border-radius: 25;" text="THANH TOÁN, IN HÓA ĐƠN (F12)" textFill="#12469a">
+                        <Button fx:id="btnPurchase" layoutX="-21.0" layoutY="360.0" mnemonicParsing="false" onAction="#btnPurchaseClicked" prefHeight="32.0" prefWidth="271.0" style="-fx-background-radius: 3250; -fx-background-color: white; -fx-border-radius: 25;" text="THANH TOÁN, IN HÓA ĐƠN (F12)" textFill="#12469a">
                            <font>
                               <Font name="System Bold Italic" size="13.0" />
                            </font>
@@ -601,6 +596,7 @@
                               </DropShadow>
                            </effect>
                         </Button>
+                        <RadioButton fx:id="invoicePrint" layoutX="267.0" layoutY="366.0" mnemonicParsing="false" scaleX="1.7" scaleY="1.7" stylesheets="@CSSs/dashboardScreen.css" />
                      </children>
                   </AnchorPane>
                   <Rectangle arcHeight="40.0" arcWidth="40.0" fill="WHITE" height="110.0" layoutX="-11.0" layoutY="32.0" stroke="#1f1f1f00" strokeType="INSIDE" width="319.0">

@@ -7,6 +7,10 @@ module com.example.assignmentapp {
     requires mysql.connector.j;
     requires layout;
     requires kernel;
+    requires java.desktop;
+
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
 
     opens com.example.assignmentapp to javafx.fxml;
     exports com.example.assignmentapp;

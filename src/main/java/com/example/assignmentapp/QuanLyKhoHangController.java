@@ -1,5 +1,9 @@
 package com.example.assignmentapp;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.oned.Code128Writer;
 import dbConnection.connectionClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,12 +27,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class QuanLyKhoHangController implements Initializable {
@@ -73,6 +75,9 @@ public class QuanLyKhoHangController implements Initializable {
     private TextField khohang_stock;
 
     @FXML
+    private TextField khohang_supplier;
+
+    @FXML
     private  TableView<warehouseItems> khohang_table;
 
     @FXML
@@ -100,6 +105,9 @@ public class QuanLyKhoHangController implements Initializable {
     private TableColumn<warehouseItems, String> table_unit;
 
     @FXML
+    private TableColumn<warehouseItems, String> table_supplier;
+
+    @FXML
     private ComboBox<String> category_combobox;
 
     @FXML
@@ -123,13 +131,13 @@ public class QuanLyKhoHangController implements Initializable {
         Connection conn = connectionClass.getConnection();
         String query = "SELECT p.productBarcode AS ProductID, " +
                 "p.productName AS ProductName, " +
+                "p.productSupplier AS Supplier, " +  // Add this line for productSupplier
                 "p.categoryID AS CategoryID, " +
                 "p.productUnit AS Unit, " +
                 "w.stock AS Stock, " +
                 "p.productPrice AS Price, " +
                 "p.productImage AS ImagePath, " +
-                "w.quantityIn AS QuantityIn, " +
-                "p.productSupplier AS Supplier " +  // Add this line for productSupplier
+                "w.quantityIn AS QuantityIn " +
                 "FROM warehouse w " +
                 "JOIN productdetails p ON w.productBarcode = p.productBarcode;";
 
@@ -141,13 +149,13 @@ public class QuanLyKhoHangController implements Initializable {
                 products.add(new warehouseItems(
                         resultSet.getString("ProductID"),
                         resultSet.getString("ProductName"),
+                        resultSet.getString("Supplier"), // Set the Supplier field
                         resultSet.getInt("CategoryID"),
                         resultSet.getString("Unit"),
                         resultSet.getInt("Stock"),
                         resultSet.getDouble("Price"),
                         resultSet.getInt("QuantityIn"),
-                        resultSet.getString("ImagePath"),
-                        resultSet.getString("Supplier") // Set the Supplier field
+                        resultSet.getString("ImagePath")
                 ));
             }
             khohang_table.setItems(products);
@@ -186,16 +194,67 @@ public class QuanLyKhoHangController implements Initializable {
         ObservableList listData = FXCollections.observableArrayList(unitL);
         unit_combobox.setItems(listData);
     }
+
+    public static String generateEAN13Barcode() {
+        Random random = new Random();
+        int[] digits = new int[12];
+
+        for (int i = 0; i < 12; i++) {
+            digits[i] = random.nextInt(10);
+        }
+
+        int checkSum = 0;
+        for (int i = 0; i < 12; i++) {
+            checkSum += (i % 2 == 0) ? digits[i] : digits[i] * 3;
+        }
+        int checkDigit = (10 - (checkSum % 10)) % 10;
+
+        // Build the barcode string
+        StringBuilder barcode = new StringBuilder();
+        for (int digit : digits) {
+            barcode.append(digit);
+        }
+        barcode.append(checkDigit);
+
+        return barcode.toString();
+    }
+
+    public void generatorPdf(String barcode, String name) {
+        System.out.println("Clicked");
+        try {
+            String text = barcode;
+            if (text == null || text.isEmpty()) {
+                System.out.println("Barcode text cannot be empty.");
+                return;
+            }
+
+            String directoryPath = "D:\\Images\\JavaAssign\\Barcodes";
+            Path path = Paths.get(directoryPath);
+            if (!Files.exists(path)) {
+                Files.createDirectories(path);
+            }
+
+            Code128Writer writer = new Code128Writer();
+            BitMatrix matrix = writer.encode(text, BarcodeFormat.CODE_128, 300, 100); // Use CODE_128
+
+            Path outputPath = path.resolve(name+".jpg");
+            MatrixToImageWriter.writeToPath(matrix, "jpg", outputPath);
+
+            System.out.println("Barcode created at: " + outputPath.toString());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     //Chuc nang Add
     public void khohangAdd() {
-        if (khohang_productID.getText().isEmpty()
-                || khohang_productName.getText().isEmpty()
+        if ( khohang_productName.getText().isEmpty()
                 || category_combobox.getSelectionModel().getSelectedItem() == null
                 || unit_combobox.getSelectionModel().getSelectedItem() == null
                 || khohang_stock.getText().isEmpty()
                 || khohang_price.getText().isEmpty()
                 || data.path == null
-                || txtSupplier.getText().isEmpty()) {  // Check if Supplier is entered
+                || khohang_supplier.getText().isEmpty()) {  // Check if Supplier is entered
 
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Message");
@@ -209,6 +268,7 @@ public class QuanLyKhoHangController implements Initializable {
             String checkProductID = "SELECT productBarcode FROM productdetails WHERE productBarcode='" + khohang_productID.getText() + "'";
 
             connect = connectionClass.getConnection();
+            String newBarcode = generateEAN13Barcode();
             try {
                 statement = connect.createStatement();
                 result = statement.executeQuery(checkProductID);
@@ -224,15 +284,15 @@ public class QuanLyKhoHangController implements Initializable {
                             + "(productBarcode, productName, categoryID, productUnit, productPrice, productImage, productSupplier) VALUES (?, ?, ?, ?, ?, ?, ?)";  // Include productSupplier
 
                     prepare = connect.prepareStatement(insertDataProducts, Statement.RETURN_GENERATED_KEYS);
-                    prepare.setString(1, khohang_productID.getText());
+                    prepare.setString(1, newBarcode);
                     prepare.setString(2, khohang_productName.getText());
                     prepare.setInt(3, Integer.parseInt((String) category_combobox.getSelectionModel().getSelectedItem()));
                     prepare.setString(4, (String) unit_combobox.getSelectionModel().getSelectedItem());
                     prepare.setDouble(5, Double.parseDouble(khohang_price.getText()));
                     prepare.setString(6, formattedPath);
-                    prepare.setString(7, txtSupplier.getText());  // Set the supplier field
+                    prepare.setString(7, khohang_supplier.getText());  // Set the supplier field
                     prepare.executeUpdate(); // Execute the insert for productdetails
-
+                    generatorPdf(newBarcode, khohang_productName.getText());
                     // Retrieve generated keys for productdetails
                     ResultSet generatedKeys = prepare.getGeneratedKeys();
                     int productId = 0;
@@ -243,7 +303,7 @@ public class QuanLyKhoHangController implements Initializable {
                     // Insert product into warehouse
                     String insertDataWarehouse = "INSERT INTO Warehouse (productBarcode, stock, quantityIn) VALUES (?, ?, ?)";
                     prepare = connect.prepareStatement(insertDataWarehouse);
-                    prepare.setString(1, khohang_productID.getText());
+                    prepare.setString(1, newBarcode);
                     prepare.setInt(2, Integer.parseInt(khohang_stock.getText())); // Store CurrentStock
                     prepare.setInt(3, Integer.parseInt(khohang_stock.getText())); // Store QuantityIn equal to Stock
                     prepare.executeUpdate(); // Execute the insert for warehouse
@@ -284,6 +344,7 @@ public class QuanLyKhoHangController implements Initializable {
         khohang_price.setText("");
         data.path = "";
         khohang_imageview.setImage(null);
+        khohang_supplier.setText("");
     }
 
 //    Chuc nang Update
@@ -298,7 +359,7 @@ public void khohangUpdate() throws SQLException {
             || khohang_stock.getText().isEmpty()
             || khohang_price.getText().isEmpty()
             || data.path == null
-            || txtSupplier.getText().isEmpty()) {  // Check if Supplier is entered
+            || khohang_supplier.getText().isEmpty()) {  // Check if Supplier is entered
 
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Message");
@@ -314,7 +375,7 @@ public void khohangUpdate() throws SQLException {
                 + unit_combobox.getSelectionModel().getSelectedItem() + "', productPrice='"
                 + khohang_price.getText() + "', productImage='"
                 + formattedPath + "', productSupplier='"  // Update the supplier
-                + txtSupplier.getText() + "' WHERE productBarcode='" + khohang_productID.getText() + "'";
+                + khohang_supplier.getText() + "' WHERE productBarcode='" + khohang_productID.getText() + "'";
 
         try {
             alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -409,7 +470,7 @@ public void khohangUpdate() throws SQLException {
         khohang_productName.setText(product.getProductName());
         khohang_stock.setText(String.valueOf(product.getStock())); // Hiển thị đúng giá trị Stock
         khohang_price.setText(String.valueOf(product.getPrice()));
-
+        khohang_supplier.setText(product.getSupplier());
         // Đặt CategoryID và Unit từ sản phẩm đã chọn vào ComboBox
         category_combobox.getSelectionModel().select(String.valueOf(product.getCategoryID()));
         unit_combobox.getSelectionModel().select(product.getUnit());
@@ -476,6 +537,7 @@ public void khohangUpdate() throws SQLException {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         table_productid.setCellValueFactory(new PropertyValueFactory<>("productID"));
         table_productname.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        table_supplier.setCellValueFactory(new PropertyValueFactory<>("supplier"));
         table_categoryid.setCellValueFactory(new PropertyValueFactory<>("categoryID"));
         table_unit.setCellValueFactory(new PropertyValueFactory<>("unit"));
         table_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));

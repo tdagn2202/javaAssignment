@@ -304,19 +304,9 @@
                   <MenuItem mnemonicParsing="false" onAction="#openPointManager" text="Quản lý điểm thưởng" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Cài đặt">
-               <items>
-                  <Menu mnemonicParsing="false" text="Ngôn ngữ">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Tiếng Việt" />
-                        <MenuItem mnemonicParsing="false" text="English" />
-                     </items>
-                  </Menu>
-               </items>
-            </Menu>
             <Menu mnemonicParsing="false" text="Trợ giúp">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Thông tin phần mềm" />
+                  <MenuItem mnemonicParsing="false" onAction="#logOut" text="Đăng xuất" />
                </items>
             </Menu>
          </menus>

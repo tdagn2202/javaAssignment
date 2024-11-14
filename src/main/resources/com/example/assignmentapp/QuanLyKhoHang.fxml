@@ -34,13 +34,14 @@
       <children>
          <TableView fx:id="khohang_table" layoutX="18.0" layoutY="10.0" onMouseClicked="#khohangSelectProduct" prefHeight="391.0" prefWidth="1213.0" tableMenuButtonVisible="true" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="9.600000000000023">
            <columns>
-             <TableColumn fx:id="table_productid" prefWidth="157.59998548030853" text="Mã sản phẩm" />
-             <TableColumn fx:id="table_productname" prefWidth="327.1999816894531" text="Tên sản phẩm" />
-               <TableColumn fx:id="table_categoryid" prefWidth="107.99990844726562" text="Phân loại" />
-               <TableColumn fx:id="table_unit" prefWidth="112.0" text="Đơn vị" />
-               <TableColumn fx:id="table_stock" prefWidth="123.199951171875" text="Số lượng" />
-               <TableColumn fx:id="table_price" prefWidth="128.79998779296875" text="Giá thành" />
-               <TableColumn fx:id="table_quantityin" prefWidth="128.00006103515625" text="Số lượng nhập" />
+             <TableColumn fx:id="table_productid" prefWidth="147.0" text="Mã sản phẩm" />
+             <TableColumn fx:id="table_productname" prefWidth="284.0" text="Tên sản phẩm" />
+               <TableColumn fx:id="table_supplier" prefWidth="240.0" text="Nhà cung cấp" />
+               <TableColumn fx:id="table_categoryid" prefWidth="86.0" text="Phân loại" />
+               <TableColumn fx:id="table_unit" prefWidth="101.0" text="Đơn vị" />
+               <TableColumn fx:id="table_stock" prefWidth="92.0" text="Số lượng" />
+               <TableColumn fx:id="table_price" prefWidth="132.0" text="Giá thành" />
+               <TableColumn fx:id="table_quantityin" prefWidth="127.0" text="Số lượng nhập" />
            </columns>
             <columnResizePolicy>
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -70,7 +71,7 @@
                <Font size="18.0" />
             </font>
          </Label>
-         <TextField fx:id="khohang_productID" layoutX="162.0" layoutY="13.0" prefHeight="35.0" prefWidth="203.0" style="-fx-background-radius: 8; -fx-background-color: white;">
+         <TextField fx:id="khohang_productID" editable="false" layoutX="162.0" layoutY="13.0" prefHeight="35.0" prefWidth="203.0" style="-fx-background-radius: 8; -fx-background-color: white;">
             <effect>
                <DropShadow height="29.44" radius="13.455" width="26.38">
                   <color>
@@ -189,7 +190,7 @@
                <Font size="18.0" />
             </font>
          </Label>
-         <TextField fx:id="txtSupplier" layoutX="159.0" layoutY="107.0" prefHeight="35.0" prefWidth="203.0" style="-fx-background-radius: 8; -fx-background-color: white;">
+         <TextField fx:id="khohang_supplier" layoutX="159.0" layoutY="107.0" prefHeight="35.0" prefWidth="203.0" style="-fx-background-radius: 8; -fx-background-color: white;">
             <effect>
                <DropShadow height="29.44" radius="13.455" width="26.38">
                   <color>

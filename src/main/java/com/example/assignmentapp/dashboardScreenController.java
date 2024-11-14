@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 import dbConnection.connectionClass;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class dashboardScreenController implements Initializable {
@@ -293,7 +294,11 @@ public class dashboardScreenController implements Initializable {
                 }
 
                 Double discountPrice = getDiscountPrice();
-                loadMoney(data.getTotalPrice(), discountPrice);
+                try {
+                    loadMoney(data.getTotalPrice(), discountPrice);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -312,7 +317,11 @@ public class dashboardScreenController implements Initializable {
         );
 
         txtCash.textProperty().addListener((observable, oldvalue, newvalue) -> {
-            loadChangeMoney();
+            try {
+                loadChangeMoney();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         });
 
 
@@ -454,7 +463,7 @@ public class dashboardScreenController implements Initializable {
     public Double pointCalculate(Double price){
         return price * 0.1;
     }
-    public String loadTotalPrice() {
+    public String loadTotalPrice() throws SQLException {
 
         Double totalPrice =.0;
 
@@ -492,7 +501,7 @@ public class dashboardScreenController implements Initializable {
         return price - (price*0.25);
     }
 
-    public void dailyDiscount() {
+    public void dailyDiscount() throws SQLException {
         var selectedItem = currentTableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             selectedItem.setTotalPrice(afterDiscountForF11(selectedItem.getTotalPrice()));
@@ -539,6 +548,7 @@ public class dashboardScreenController implements Initializable {
                     if (resultSet.next()) {
                         productBarcodeFromDatabase = resultSet.getString("productBarCode");
                         productNameFromDatabase = resultSet.getString("productName");
+                        productSupplierFromDatabase = resultSet.getString("productSupplier");
                         productUnitFromDatabase = resultSet.getString("productUnit");
                         productPriceFromDatabase = resultSet.getDouble("productPrice");
                         productImage = resultSet.getString("productImage");
@@ -559,7 +569,7 @@ public class dashboardScreenController implements Initializable {
             lblBarcode.setText(productBarcodeFromDatabase);
             lblUnit.setText(productUnitFromDatabase);
             loadMoney(productPriceFromDatabase, discountPrice);
-
+            lblSupplier.setText(productSupplierFromDatabase);
             System.out.println(productImage);
 //            Image image = new Image(getClass().getResourceAsStream("/com/example/assignmentapp/Images/" + productImage));
             System.out.println("Image path: " + "/com/example/assignmentapp/Images/" + productImage);
@@ -637,14 +647,14 @@ public class dashboardScreenController implements Initializable {
 //            loadMoney(productPriceFromDatabase, discountPrice);
 //        }
 //    }
-    public void loadMoney(Double pdP, Double discountPrice){
+    public void loadMoney(Double pdP, Double discountPrice) throws SQLException {
         lblPrice.setText(String.valueOf(pdP));
         lblTotalPrice.setText(calcTotalPrice(currentTableView, discountPrice));
         lblMiniTotal.setText(String.valueOf(loadTotalPrice()));
         lblDiscount.setText(String.valueOf(discountPrice));
     }
 
-
+    int categoryId = 0;
     public void searchProduct(String barcode) {
         Tab selectedTab = pane.getSelectionModel().getSelectedItem();
         ObservableList<productDetails> productList = tabDataMap.get(selectedTab);
@@ -666,7 +676,7 @@ public class dashboardScreenController implements Initializable {
 
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
                 preparedStatement.setString(1, barcode);
-                int categoryId = 0;
+                categoryId = 0;
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {
                         String productCode = resultSet.getString("productBarCode");
@@ -692,7 +702,7 @@ public class dashboardScreenController implements Initializable {
                                     new SimpleStringProperty(unit),
                                     new SimpleIntegerProperty(1),
                                     new SimpleDoubleProperty(price),
-                                    new SimpleDoubleProperty(1 * afterDiscountPrice(price, categoryId))
+                                    new SimpleDoubleProperty(1 * afterDiscountPrice(price))
                             );
                             productList.add(newProduct);
                             System.out.println("added");
@@ -790,26 +800,38 @@ public class dashboardScreenController implements Initializable {
         }
     }
 
-
-
-    public Double getDiscount(int billId) throws SQLException {
-        Double discount = .0;
-
+    public double getDiscountById() throws SQLException {
+        double discount =.0;
         Connection connection = connectionClass.getConnection();
-        String sqlQuery = "SELECT * form discount where categoryId =?";
+        String sqlQuery = "SELECT * from discount where categoryId =?";
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        preparedStatement.setInt(1, billId);
+        preparedStatement.setInt(1, categoryId);
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()){
             discount = resultSet.getDouble("discountPercentage");
         }
-
-        return discount;
+        return discount/100;
     }
 
-    public double afterDiscountPrice(Double price, int billId){
-        return price - (price*getDiscount(billId));
+    public Double getDiscount() throws SQLException {
+//        Double discount = .0;
+//
+//        Connection connection = connectionClass.getConnection();
+//        String sqlQuery = "SELECT * form discount where categoryId =?";
+//        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+//        preparedStatement.setInt(1, categoryId);
+//        ResultSet resultSet = preparedStatement.executeQuery();
+//
+//        while (resultSet.next()){
+//            discount = resultSet.getDouble("discountPercentage");
+//        }
+
+        return getDiscountById();
+    }
+
+    public double afterDiscountPrice(Double price) throws SQLException {
+        return price - (price*getDiscount());
     }
 
 
@@ -823,6 +845,14 @@ public class dashboardScreenController implements Initializable {
 
     public void removeAllTable(ActionEvent e){
         currentTableView.getItems().clear();
+        lblTotalPrice.setText("");
+        lblMiniTotal.setText("");
+        lblDiscount.setText("");
+        txtCash.clear();
+        lblCustomerName.setText("");
+        lblCustomerPhoneNumber.setText("");
+        txtPointToCash.clear();
+        lblRemainPoint.setText("");
     }
 
 
@@ -908,7 +938,8 @@ public class dashboardScreenController implements Initializable {
                 }
             }
 
-
+            ActionEvent event = new ActionEvent();
+            removeAllTable(event);
 
 
         } catch (Exception exception){
@@ -924,7 +955,7 @@ public class dashboardScreenController implements Initializable {
 
     }
 
-    public void loadChangeMoney(){
+    public void loadChangeMoney() throws SQLException {
         System.out.println("Text changed");
         Double exchangeMoney = .0;
         Double receivedMoney = Double.valueOf(txtCash.getText());
@@ -1009,7 +1040,7 @@ public class dashboardScreenController implements Initializable {
                 Parent mainRoot = mainLoader.load();
                 Stage mainStage = new Stage();
                 mainStage.setScene(new Scene(mainRoot));
-                mainStage.setTitle("First Screen");
+                mainStage.setTitle("Trình quản lý siêu thị");
                 mainStage.show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1068,6 +1099,19 @@ public class dashboardScreenController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void logOut(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginScreen.fxml"));
+        Parent parent = loader.load();
+        Stage currentStage = (Stage) btnNewBill.getScene().getWindow();
+        Stage stage = new Stage();
+        Scene scene = new Scene(parent);
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        currentStage.close();
+        stage.show();
     }
 }
 

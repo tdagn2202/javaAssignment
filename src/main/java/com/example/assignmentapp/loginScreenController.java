@@ -159,6 +159,15 @@ public class loginScreenController {
                         break;
                     }
 
+                    case F1: {
+                        TabPane pane = dbController.getPane();
+                        Tab selectedTab = pane.getSelectionModel().getSelectedItem();
+                        if (selectedTab != null) {
+                            pane.getTabs().remove(selectedTab);
+                        }
+                        break;
+                    }
+
                     case F7: {
                         MouseEvent mouseEvent = new MouseEvent(
                                 MouseEvent.MOUSE_CLICKED,
@@ -177,7 +186,11 @@ public class loginScreenController {
                     }
 
                     case F11: {
-                        dbController.dailyDiscount();
+                        try {
+                            dbController.dailyDiscount();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
 
                     }
 
@@ -379,7 +392,11 @@ public class loginScreenController {
                     }
 
                     case F11: {
-                        dbController.dailyDiscount();
+                        try {
+                            dbController.dailyDiscount();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
 
                     }
 
