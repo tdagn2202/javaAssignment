@@ -22,13 +22,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.logging.SimpleFormatter;
 
 public class pdfGenerator {
     public void createInvoicePdf(Stage stage, int billId) throws IOException, SQLException {
         Connection connection = connectionClass.getConnection();
-        List<billData> billDataList = new ArrayList<>();  // Renamed list to billDataList
+        List<billData> billDataList = new ArrayList<>();
 
         String sqlQuery = "SELECT pd.productName, bd.detailQuantity, pd.productPrice, bd.detailAmount, b.billId " +
                 "FROM bill b " +
@@ -89,7 +92,9 @@ public class pdfGenerator {
         document.add(subtitle);
 
         LocalDateTime now = LocalDateTime.now();
-        document.add(new Paragraph("\nNgày lập hóa đơn: " + now).setFont(font)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy");
+        String formattedDate = now.format(formatter);
+        document.add(new Paragraph("\nNgày lập hóa đơn: " + formattedDate).setFont(font)
                 .setFontSize(10)
                 .setMarginTop(10));
         document.add(new Paragraph("Mã số hóa đơn: " + billId).setFont(font)

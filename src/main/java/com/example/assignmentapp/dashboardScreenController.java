@@ -938,10 +938,6 @@ public class dashboardScreenController implements Initializable {
                 }
             }
 
-            ActionEvent event = new ActionEvent();
-            removeAllTable(event);
-
-
         } catch (Exception exception){
             exception.printStackTrace();
         }
@@ -952,7 +948,8 @@ public class dashboardScreenController implements Initializable {
         }
 
         createBill();
-
+        ActionEvent event = new ActionEvent();
+        removeAllTable(event);
     }
 
     public void loadChangeMoney() throws SQLException {
